@@ -2,30 +2,34 @@
 // https://karma-runner.github.io/0.13/config/configuration-file.html
 
 module.exports = function (config) {
-  config.set({
-    basePath: '',
-    frameworks: ['jasmine', 'karma-typescript'],
-    plugins: [
-      require('karma-jasmine'),
-      require('karma-chrome-launcher'),
-      require('karma-remap-istanbul'),
-      'karma-typescript'
-    ],
-    files: 
-      [ './src/test.ts', './src/*.ts' ]
-    ,
-    exclude:['./node_modules/*.ts'],
-    preprocessors: {
-      './src/test.ts': ['karma-typescript']
-    },
-    mime: {
-      'text/x-typescript': ['ts','tsx']
-    },
-    port: 9876,
-    colors: true,
-    logLevel: config.LOG_INFO,
-    autoWatch: true,
-    browsers: ['Chrome'],
-    singleRun: false
-  });
+	config.set({
+		frameworks: [ 'jasmine', 'karma-typescript' ],
+		browsers: [ 'Chrome' ],
+		reporters: [ 'progress', 'karma-typescript' ],
+		autoWatch: true,
+		singleRun: false,
+		files: [
+      { pattern: './src/**/*.spec.ts'},
+      { pattern: './src/**/*.ts'},
+      { pattern: './src/**/*.html'},
+			{ pattern: './node_modules/**/*.ts', included: false }
+		],
+		preprocessors: {
+			'./src/**/*.ts': [ 'karma-typescript' ]
+		},
+		karmaTypescriptConfig: {
+			compilerOptions: {
+				sourceMap: true,
+				target: 'ES5',
+        allowJs: true,
+        lib:['es5', 'es6', 'dom']
+			},
+			reports: {
+				html: 'tests/coverage',
+				text: ''
+      }
+    }
+		// ,
+		// logLevel: config.LOG_DEBUG
+	});
 };
