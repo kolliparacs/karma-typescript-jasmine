@@ -1,0 +1,49 @@
+// Karma configuration file, see link for more information
+// https://karma-runner.github.io/0.13/config/configuration-file.html
+
+module.exports = function (config) {
+  config.set({
+    basePath: '',
+    frameworks: ['jasmine'],
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage'),
+      require('karma-remap-istanbul')
+ ],
+    files: 
+      [ 
+			// Polyfills
+			'node_modules/core-js/client/shim.js',
+			'node_modules/reflect-metadata/Reflect.js',
+	
+			// zone.js
+			'node_modules/zone.js/dist/zone.js',
+			'node_modules/zone.js/dist/long-stack-trace-zone.js',
+			'node_modules/zone.js/dist/proxy.js',
+			'node_modules/zone.js/dist/sync-test.js',
+			'node_modules/zone.js/dist/jasmine-patch.js',
+			'node_modules/zone.js/dist/async-test.js',
+			'node_modules/zone.js/dist/fake-async-test.js',
+         
+         './src/test.ts', 
+         './src/*.ts' 
+      ]
+    ,
+    exclude:[],
+    preprocessors: {
+      
+    },
+    mime: {
+      'text/x-typescript': ['ts','tsx']
+    },
+    port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
+    browsers: ['Chrome'],
+    singleRun: false,
+    concurrency : 1
+  });
+};
